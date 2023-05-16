@@ -26,11 +26,24 @@ export const cardApi = createApi({
   tagTypes: ['Cards'],
 
   endpoints: (builder) => ({
-    getCards: builder.query<any, void>({
-      query: (parameters) => ({
+    getCards: builder.query<any, { page: number; limit: number }>({
+      query: ({ page, limit }) => ({
         url: 'api/card',
-        // params: { userId: parameters?.userId, limit: parameters?.limit, page: parameters?.page },
+        params: { page, limit },
       }),
+
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName
+      },
+
+      merge: (currentCache, newItems) => {
+        currentCache.push(...newItems)
+      },
+
+      forceRefetch({ currentArg, previousArg }) {
+        return JSON.stringify(currentArg) !== JSON.stringify(previousArg)
+      },
+
       providesTags: ['Cards'],
     }),
 
