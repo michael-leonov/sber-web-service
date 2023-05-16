@@ -30,7 +30,7 @@
   }
 
   .form-element-custom {
-    @apply border rounded-md p-2 focus:border-violet-500 outline-none w-full;
+    @apply border rounded-md p-2 focus:border-violet-500 outline-none w-full max-w-sm;
   }
 
   .main-button {

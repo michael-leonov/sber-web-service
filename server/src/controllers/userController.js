@@ -10,26 +10,30 @@ const generateAccessToken = (id, name) => {
 };
 
 const signUp = async (req, res, next) => {
-  const { name, password } = req.body;
+  try {
+    const { name, password } = req.body;
 
-  if (!name || !password) {
-    return next(ApiError.badRequest("Некорректный логин или пароль"));
+    if (!name || !password) {
+      return next(ApiError.badRequest("Некорректный логин или пароль"));
+    }
+
+    const candidate = await User.findOne({ where: { name } });
+    if (candidate) {
+      return next(
+        ApiError.badRequest("Пользователь с таким логином уже существует")
+      );
+    }
+
+    const hashPassword = await bcrypt.hash(password, 5);
+
+    const user = await User.create({ name, password: hashPassword });
+
+    const token = generateAccessToken(user.id, user.name);
+
+    return res.json({ user, token });
+  } catch (error) {
+    next(ApiError.badRequest(error.message));
   }
-
-  const candidate = await User.findOne({ where: { name } });
-  if (candidate) {
-    return next(
-      ApiError.badRequest("Пользователь с таким логином уже существует")
-    );
-  }
-
-  const hashPassword = await bcrypt.hash(password, 5);
-
-  const user = await User.create({ name, password: hashPassword });
-
-  const token = generateAccessToken(user.id, user.name);
-
-  return res.json({ user, token });
 };
 
 const signIn = async (req, res, next) => {
