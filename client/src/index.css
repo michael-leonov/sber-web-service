@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply font-['Comic_Sans_MS'];
+  }
+
+  h1 {
+    @apply text-2xl mb-5 font-semibold;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  a {
+    @apply text-lg;
+  }
+
+  p {
+    @apply font-light;
+  }
+}
+
+@layer components {
+  .link-custom {
+    @apply underline text-violet-500 font-medium;
+  }
+
+  .form-element-custom {
+    @apply border rounded-md p-2 focus:border-violet-500 outline-none w-full;
+  }
+
+  .main-button {
+    @apply bg-violet-800 text-white py-1 px-3 rounded-2xl shadow-2xl cursor-pointer;
+  }
+
+  .error {
+    @apply text-sm font-semibold text-red-500 text-center px-14;
+  }
+}
