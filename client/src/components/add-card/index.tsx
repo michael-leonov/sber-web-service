@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAddCardMutation } from '../../redux/services/cardApi'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAppSelector } from '../../redux/hooks'
@@ -16,10 +16,18 @@ const AddCard = () => {
   const {
     register,
     handleSubmit,
+    formState,
     formState: { errors },
+    reset,
   } = useForm<FormValues>()
 
   const [addCard, { isLoading: isAdding }] = useAddCardMutation()
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({ title: '', description: '' })
+    }
+  }, [formState, reset])
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     data.userId = id
