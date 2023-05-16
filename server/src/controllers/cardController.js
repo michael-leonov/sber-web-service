@@ -17,29 +17,23 @@ const create = async (req, res, next) => {
 };
 
 const getAll = async (req, res) => {
-  let { userId, page, limit } = req.query;
+  try {
+    let { page, limit } = req.query;
 
-  page = page || 1;
-  limit = limit || 10;
+    page = page || 1;
+    limit = limit || 10;
 
-  let offset = page * limit - limit;
+    let offset = page * limit - limit;
 
-  let cards;
-
-  if (userId) {
-    cards = await Card.findAll({
-      where: { userId },
+    const cards = await Card.findAll({
       limit: Number(limit),
       offset: Number(offset),
     });
-  } else {
-    cards = await Card.findAll({
-      limit: Number(limit),
-      offset: Number(offset),
-    });
+
+    return res.json(cards);
+  } catch (error) {
+    next(ApiError.badRequest(error.message));
   }
-
-  return res.json(cards);
 };
 
 module.exports = { create, getAll };
