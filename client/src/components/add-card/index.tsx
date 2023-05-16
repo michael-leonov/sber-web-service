@@ -28,7 +28,7 @@ const AddCard = () => {
 
   return (
     <main>
-      <div className='container mx-auto px-2.5'>
+      <div className='container mx-auto'>
         <h1>Форма добавление новой карточки</h1>
 
         <form className='flex flex-col items-center gap-y-2' onSubmit={handleSubmit(onSubmit)}>

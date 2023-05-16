@@ -4,8 +4,6 @@ import Card from '../../components/card'
 import { useGetCardsQuery } from '../../redux/services/cardApi'
 
 const CardList = () => {
-  const LIMIT = 10
-
   const { data, isLoading, isError } = useGetCardsQuery()
 
   const isEmptyList = !isLoading && !data?.length
@@ -20,12 +18,12 @@ const CardList = () => {
 
   return (
     <main>
-      <div className='container mx-auto px-2.5'>
+      <div className='container mx-auto'>
         <h1>Список карточек</h1>
         {isEmptyList ? (
           <span>Карточки отсутствуют</span>
         ) : (
-          <div className='grid grid-cols-2 gap-3'>
+          <div className='grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-x-8 xl:gap-x-10'>
             {data.map((card: any) => (
               <Card key={card.id} {...card} />
             ))}

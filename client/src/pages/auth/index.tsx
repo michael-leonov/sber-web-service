@@ -59,9 +59,9 @@ const Auth = () => {
 
   return (
     <div>
-      <div className='container mx-auto px-2.5'>
+      <div className='container mx-auto'>
         <h1 className='text-center'>{isSignUp ? <>Регистрация</> : <>Авторизация</>}</h1>
-        <form className='flex flex-col gap-y-2' onSubmit={handleSubmit(onSubmit)}>
+        <form className='flex flex-col items-center gap-y-2' onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor='name'>Логин</label>
           <input
             type='text'
