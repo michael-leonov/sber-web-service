@@ -14,10 +14,11 @@ const App = () => {
 
   useEffect(() => {
     if (user?.token) {
-      if (isSuccess)
+      if (isSuccess) {
         dispatch(setUser({ name: user.name, token: data.token, id: user.id, isAuth: true }))
-    } else {
-      dispatch(setUser(user))
+      } else {
+        dispatch(setUser({ ...user, isAuth: true }))
+      }
     }
   }, [])
 
