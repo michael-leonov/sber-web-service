@@ -12,15 +12,13 @@ const App = () => {
 
   const { data, isSuccess } = useCheckQuery()
 
-  useEffect(() => {
-    if (user?.token) {
-      if (isSuccess) {
-        dispatch(setUser({ name: user.name, token: data.token, id: user.id, isAuth: true }))
-      } else {
-        dispatch(setUser({ ...user, isAuth: true }))
-      }
+  if (user?.token) {
+    if (isSuccess) {
+      dispatch(setUser({ name: user.name, token: data.token, id: user.id, isAuth: true }))
+    } else {
+      dispatch(setUser({ ...user, isAuth: true }))
     }
-  }, [])
+  }
 
   return (
     <>
